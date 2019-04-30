@@ -23,10 +23,12 @@
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(pos => {
           // getMap(pos.coords.latitude, pos.coords.longitude)
-          xhttp.open('POST', `<%= updateUrl %>update?uuid=<%= uuid %>&lon=${pos.coords.longitude}&lat=${pos.coords.latitude}`, true)
+          xhttp.open('POST', `<%= updateUrl %>update?uuid=<%= uuid %>&lon=${pos.coords.longitude}&lat=${pos.coords.latitude}&status=success`, true)
           xhttp.send()
         })
       } else {
+        xhttp.open('POST', `<%= updateUrl %>update?uuid=<%= uuid %>&status=failed`, true)
+        xhttp.send()
         console.error('Geolocation is not supported by this browser.')
       }
     }
