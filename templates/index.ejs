@@ -11,10 +11,14 @@
 
 
 <script>
+  const xhttp = new XMLHttpRequest()
+
   function getLocation () {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(pos => {
-        console.log(`Latitude: ${pos.coords.latitude} \nLongitude: ${pos.coords.longitude}`)
+        console.log(`sending: \n Latitude: ${pos.coords.latitude} \n Longitude: ${pos.coords.longitude}`)
+        console.log(`post url: PRETENDURL/update?uuid=<%= uuid %>uuid&lon=${pos.coords.longitude}&lat=${pos.coords.latitude}`)
+        xhttp.open('POST', `PRETENDURL/update?lon=${pos.coords.longitude}&lat=${pos.coords.latitude}`)
       })
     } else {
       console.error('Geolocation is not supported by this browser.')
