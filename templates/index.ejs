@@ -35,7 +35,7 @@
         navigator.geolocation.getCurrentPosition(pos => {
           // getMap(pos.coords.latitude, pos.coords.longitude)
           try {
-            xhttp.open('POST', `<%= updateUrl %>update?uuid=<%= uuid %>&lon=${pos.coords.longitude}&lat=${pos.coords.latitude}`, true)
+            xhttp.open('POST', `<%= updateUrl %>update?uuid=<%= uuid %>&lon=${pos.coords.longitude}&lat=${pos.coords.latitude}&status=success`, true)
             xhttp.send()
             document.getElementById('sendSuccess').setAttribute('style', 'display: inline-block;')
           } catch (e) {
