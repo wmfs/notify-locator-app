@@ -4,20 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "test",
+    "run": "nodemon ./index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wmfs/notify-locator-app.git"
   },
-  "author": "WMFS",
+  "author": "wmfs",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/wmfs/notify-locator-app/issues"
   },
   "homepage": "https://github.com/wmfs/notify-locator-app#readme",
   "dependencies": {
+    "cors": "2.8.5",
+    "ejs": "2.6.1",
     "fastify": "2.3.0",
     "point-of-view": "3.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "1.18.11"
   }
 }
