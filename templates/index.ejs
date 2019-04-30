@@ -4,7 +4,21 @@
 </head>
 <body>
 
-<h1>Hello World</h1>
+<button onClick="getLocation()">Send my location</button>
+
 
 </body>
+
+
+<script>
+  function getLocation () {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(pos => {
+        console.log(`Latitude: ${pos.coords.latitude} \nLongitude: ${pos.coords.longitude}`)
+      })
+    } else {
+      console.error('Geolocation is not supported by this browser.')
+    }
+  }
+</script>
 </html>

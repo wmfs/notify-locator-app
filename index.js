@@ -9,9 +9,9 @@ fastify.register(require('point-of-view'), {
   }
 })
 
-fastify.get(`/`, (req, reply) => {
-  console.log('Locating that boi')
-  reply.view('/templates/index.ejs')
+fastify.get(`/locator/:uuid`, (req, reply) => {
+  console.log('on home', req.params.uuid)
+  return reply.view('/templates/index.ejs')
 })
 
 fastify.listen(3000, err => {
