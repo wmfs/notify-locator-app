@@ -8,31 +8,49 @@
     <div class="jumbotron" style="margin-top: 48px;">
       <h1 class="display-4">Notify Locator</h1>
       <!-- <p class="lead">blah blah blah...</p> -->
-      
+
       <hr class="my-4">
 
       <button class="send btn btn btn-lg btn-primary" onClick="sendLocation()">Send my location</button>
+
+      <div id="sendError" class="alert alert-danger" role="alert" style="display: none;">
+        There was an error.
+      </div>
+
+      <div id="sendSuccess" class="alert alert-success" role="alert" style="display: none;">
+        Location has been sent.
+      </div>
       <!-- <button class="btn btn-lg btn-info" onClick="showLocation()">Where am I though?</button> -->
     </div>
   </div>
 
   <script>
     const xhttp = new XMLHttpRequest()
-  
+
     function sendLocation () {
+      document.getElementById('sendSuccess').setAttribute('style', 'display: none;')
+      document.getElementById('sendError').setAttribute('style', 'display: none;')
+
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(pos => {
           // getMap(pos.coords.latitude, pos.coords.longitude)
-          xhttp.open('POST', `<%= updateUrl %>update?uuid=<%= uuid %>&lon=${pos.coords.longitude}&lat=${pos.coords.latitude}&status=success`, true)
-          xhttp.send()
+          try {
+            xhttp.open('POST', `<%= updateUrl %>update?uuid=<%= uuid %>&lon=${pos.coords.longitude}&lat=${pos.coords.latitude}`, true)
+            xhttp.send()
+            document.getElementById('sendSuccess').setAttribute('style', 'display: inline-block;')
+          } catch (e) {
+            console.error('Error on xhttp request ', e)
+            document.getElementById('sendError').setAttribute('style', 'display: inline-block;')
+          }
         })
       } else {
         xhttp.open('POST', `<%= updateUrl %>update?uuid=<%= uuid %>&status=failed`, true)
         xhttp.send()
         console.error('Geolocation is not supported by this browser.')
+        document.getElementById('sendError').setAttribute('style', 'display: inline-block;')
       }
     }
-  
+
     function showLocation () {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(pos => {
@@ -46,7 +64,7 @@
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 
 <style>
