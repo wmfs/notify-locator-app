@@ -11,22 +11,20 @@
       
       <hr class="my-4">
 
-      <button class="send btn btn btn-lg btn-primary" onClick="getLocation()">Send my location</button>
-    <button class="btn btn-lg btn-info" onClick="showLocation()">Where am I though?</button>
+      <button class="send btn btn btn-lg btn-primary" onClick="sendLocation()">Send my location</button>
+      <!-- <button class="btn btn-lg btn-info" onClick="showLocation()">Where am I though?</button> -->
     </div>
   </div>
 
   <script>
     const xhttp = new XMLHttpRequest()
   
-    function getLocation () {
+    function sendLocation () {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(pos => {
-          getMap(pos.coords.latitude, pos.coords.longitude)
-          console.log(`sending: \n Latitude: ${pos.coords.latitude} \n Longitude: ${pos.coords.longitude} \n <%= uuid %>`)
-          console.log(`post url: <%= updateUrl %>/update?uuid=<%= uuid %>&lon=${pos.coords.longitude}&lat=${pos.coords.latitude}`)
-          xhttp.open('POST', `<%= updateUrl %>/update?uuid=<%= uuid %>&lon=${pos.coords.longitude}&lat=${pos.coords.latitude}`, true)
-          // xhttp.send()
+          // getMap(pos.coords.latitude, pos.coords.longitude)
+          xhttp.open('POST', `<%= updateUrl %>update?uuid=<%= uuid %>&lon=${pos.coords.longitude}&lat=${pos.coords.latitude}`, true)
+          xhttp.send()
         })
       } else {
         console.error('Geolocation is not supported by this browser.')
