@@ -10,10 +10,10 @@ fastify.register(require('point-of-view'), {
 })
 
 fastify.get(`/locator/:uuid`, (req, reply) => {
-  console.log('on home', req.params.uuid)
   return reply.view('/templates/index.ejs', {
     uuid: req.params.uuid,
-    updateUrl: process.env.UPDATE_URL
+    updateUrl: process.env.UPDATE_URL,
+    mapquestKey: process.env.MAPQUEST_KEY
   })
 })
 

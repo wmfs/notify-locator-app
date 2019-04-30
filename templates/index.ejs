@@ -1,12 +1,12 @@
 <html>
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <title>notify-locator-app</title>
 </head>
 <body>
 
-<button onClick="getLocation()">Send my location</button>
-
-
+<button class="send btn-lg btn-primary" onClick="getLocation()">Send my location</button>
+<button class="btn-lg btn-info" onClick="showLocation()">Where am I though?</button>
 </body>
 
 
@@ -16,7 +16,8 @@
   function getLocation () {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(pos => {
-        console.log(`sending: \n Latitude: ${pos.coords.latitude} \n Longitude: ${pos.coords.longitude}`)
+        getMap(pos.coords.latitude, pos.coords.longitude)
+        console.log(`sending: \n Latitude: ${pos.coords.latitude} \n Longitude: ${pos.coords.longitude} \n <%= uuid %>`)
         console.log(`post url: <%= updateUrl %>/update?uuid=<%= uuid %>&lon=${pos.coords.longitude}&lat=${pos.coords.latitude}`)
         xhttp.open('POST', `<%= updateUrl %>/update?uuid=<%= uuid %>&lon=${pos.coords.longitude}&lat=${pos.coords.latitude}`, true)
         // xhttp.send()
@@ -25,5 +26,21 @@
       console.error('Geolocation is not supported by this browser.')
     }
   }
+
+  function showLocation () {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(pos => {
+        window.open(`https://www.openstreetmap.org/#map=20/${pos.coords.latitude}/${pos.coords.longitude}`)
+      })
+    } else {
+      console.error('Geolocation is not supported by this browser.')
+    }
+  }
 </script>
+
+<style>
+    .send {
+        margin: auto;
+    }
+</style>
 </html>
