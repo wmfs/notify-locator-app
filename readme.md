@@ -1,10 +1,12 @@
-New repo 2 of 2: locator-app
+# Notify Locator App
 
-First route:
-/locator/:uuid (so matching with what's in the link)
+> WIP
 
-Simple html again... big button, "Send my location".
-That needs to get the devices lat/long via HTML5 magic and post it to the /update endpoint.
+| Environment Variable | Example |
+| --------------------  | ------- |
+| `UPDATE_URL` | http://localhost:8080 |
 
-This, I think, is important.
-Proper life saving stuff.
+```bash
+npm install
+npm run dev
+```
