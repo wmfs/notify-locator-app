@@ -25,27 +25,29 @@
   </div>
 
   <script>
-    const xhttp = new XMLHttpRequest()
-
-    function sendLocation () {
+    async function sendLocation () {
       document.getElementById('sendSuccess').setAttribute('style', 'display: none;')
       document.getElementById('sendError').setAttribute('style', 'display: none;')
 
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(pos => {
-          // getMap(pos.coords.latitude, pos.coords.longitude)
+        navigator.geolocation.getCurrentPosition(async pos => {
           try {
-            xhttp.open('POST', `<%= SERVER_URL %>update?uuid=<%= uuid %>&lon=${pos.coords.longitude}&lat=${pos.coords.latitude}&status=success`, true)
-            xhttp.send()
+            await fetch(
+              `<%= SERVER_URL %>update?uuid=<%= uuid %>&lon=${pos.coords.longitude}&lat=${pos.coords.latitude}&status=success`,
+              { method: 'POST' }
+            )
             document.getElementById('sendSuccess').setAttribute('style', 'display: inline-block;')
           } catch (e) {
-            console.error('Error on xhttp request ', e)
+            console.error('Error on request ', e)
             document.getElementById('sendError').setAttribute('style', 'display: inline-block;')
           }
         })
       } else {
-        xhttp.open('POST', `<%= SERVER_URL %>update?uuid=<%= uuid %>&status=failed`, true)
-        xhttp.send()
+        await fetch(
+          `<%= SERVER_URL %>update?uuid=<%= uuid %>&status=failed`,
+          { method: 'POST' }
+        )
+        
         console.error('Geolocation is not supported by this browser.')
         document.getElementById('sendError').setAttribute('style', 'display: inline-block;')
       }
