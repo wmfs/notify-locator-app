@@ -4,7 +4,8 @@
 
 | Environment Variable | Example |
 | --------------------  | ------- |
-| `UPDATE_URL` | http://localhost:8080 |
+| `SERVER_URL` | http://localhost:8080 |
+| `APP_PORT` | 3000 |
 
 ```bash
 npm install

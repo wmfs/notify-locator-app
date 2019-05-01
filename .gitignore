@@ -98,3 +98,4 @@ TEST-result.xml
 .embedpostgresql/
 
 build
+.env
